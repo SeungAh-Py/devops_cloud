@@ -7,4 +7,4 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ["cat_name", "cat_character"]
 
 
-admin.site.register(Post)
+admin.site.register(Post, PostAdmin)
