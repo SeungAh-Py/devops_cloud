@@ -1,0 +1,16 @@
+{% extends "catblog/layout.html" %}
+
+{% block content %}
+    <h2>{{ post.cat_name }}</h2>
+
+    {% if post.photo %}  {# 이미지가 아닌 문자열, db에 저장된 경로가 있다면 url 적용하겠다. #}
+    <img src="{{ post.photo.url }}" style="max-width: 100%;" />
+    {% endif %}
+
+
+    {{ post.cat_info|linebreaks }}
+    {{ post.cat_character|linebreaks }}
+
+    <hr />
+    {{ post.updated_at }}
+{% endblock %} 

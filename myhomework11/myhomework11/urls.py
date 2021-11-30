@@ -18,9 +18,14 @@ from django.urls import path
 # MEDIA 관련 추가 이하 2개
 from django.conf import settings
 from django.conf.urls.static import static
+# 뷰 생성
+from catblog.views import index, post_list, post_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index),
+    path('catblog/', post_list),
+    path('catblog/<int:pk>/', post_detail),
 ]
 
 # MEDIA 추가

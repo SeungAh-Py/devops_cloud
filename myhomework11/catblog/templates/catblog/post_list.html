@@ -1,0 +1,18 @@
+{% extends "catblog/layout.html" %}
+
+{% block content %}
+    <form action="" method="get">
+        <input type="text" name="q" value="{{ request.GET.q }}" /> {# value="{{ request.GET.q }} -> 검색시, 검색어가 남아 있음. #}
+        <input type="submit" value="검색" />
+    </form>
+
+    <ul>
+        {% for post in post_list %}
+        <li>
+            <a href="/catblog/{{ post.pk }}/">
+                {{ post.cat_name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

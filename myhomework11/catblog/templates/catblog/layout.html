@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cat's Blog</title>
+</head>
+<body>
+    <h1>Cat's Blog</h1>
+
+    <ul>
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li>
+            <a href="/catblog/">Cat's Blog</a>
+        </li>
+        <li>
+            <a href="admin/">Admin ShortcutPage</a>
+        </li>
+    </ul>
+
+    {% block content %}
+    {% endblock %}
+
+    <hr>
+    &copy; 2021.11.30 Cat's Blog
+
+</body>
+</html>
