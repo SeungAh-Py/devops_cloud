@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # local apps
     'favoritube',
+    # third apps
+    'imagekit',
 ]
 
 if DEBUG:
