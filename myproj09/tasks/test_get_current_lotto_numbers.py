@@ -1,23 +1,14 @@
-def import requests
-from bs4 import BeautifulSoup
-
-def check_available(received_text: str) -> bool:
-    return received_text == "로또번호 조회"
+from . import get_current_lotto_numbers
 
 
-def make_response(received_text: str, html: str = None) -> str:
-    if html is None:
-        url = "https://search.naver.com/search.naver?where=nexearch&sm=top_sug.pre&fbm=1&acr=1&acq=%EB%A1%9C%EB%98%90&qdt=0&ie=utf8&query=%EB%A1%9C%EB%98%90%EB%8B%B9%EC%B2%A8%EB%B2%88%ED%98%B8%EC%A1%B0%ED%9A%8C"
-        response = requests.get(url)
-        html = response.text
-    soup = BeautifulSoup(html, 'html.parser')
+HTML = """
+<div class="lotto_wrap"> <div class="lotto_tit"> <a nocr="" href="?sm=tab_drt&amp;where=nexearch&amp;query=987%ED%9A%8C%EB%A1%9C%EB%98%90" class="prev _lotto-btn-prev" data-value="987">이전회차 당첨번호</a> <h3> <a nocr="" href="#" class="_lotto-btn-current"><em>988회</em>차 당첨번호 <span>2021.11.06</span></a> </h3> <div class="slc_ly _lotto-select" style="display:none"> <h4>회차별 당첨번호</h4> </div> <a nocr="" href="#" class="next off _lotto-btn-next" data-value="989">다음회차 당첨번호</a> </div> <div class="num_box"> <span class="num ball2">2</span> <span class="num ball13">13</span> <span class="num ball20">20</span> <span class="num ball30">30</span> <span class="num ball31">31</span> <span class="num ball41">41</span> <span class="bonus">보너스번호</span> <span class="num ball27">27</span> <a nocr="" onclick="return goOtherCR(this, 'a=nco_x5e*1.contents&amp;r=1&amp;i=0011AD9E_0000017BBF9A&amp;u=' + urlencode(this.href));" target="_blank" class="btn_num" href="https://www.dhlottery.co.kr/gameResult.do?method=myWin">내 번호 당첨조회</a> </div> </div>
+    """
 
-    title = soup.select_one("._lotto-btn-current").text
+def test_get_current_lotto_numbers():
+    assert get_current_lotto_numbers.check_available("로또번호 조회")
 
-    tag_list = soup.select(".lotto_wrap .num_box .num")
-    *numbers, bonus = [tag.text for tag in tag_list]
-    message = f"""{title}
-로또 번호: {", ".join(numbers)}
-보너스 번호: {bonus}"""
-
-    return message
+    expected_html = """988회차 당첨번호 2021.11.06
+로또 번호: 2, 13, 20, 30, 31, 41
+보너스 번호ㅣ 27"""
+    assert get_current_lotto_numbers.make_response("", HTML)

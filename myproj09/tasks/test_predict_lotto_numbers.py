@@ -1,16 +1,10 @@
-from typing import List
+from . import predict_lotto_numbers
 
 
-import random
+def test_predict_lotto_number():
+    assert predict_lotto_numbers.check_available("로또")
+    assert predict_lotto_numbers.check_available("로또번호 점지해줘")
 
-def check_available(received_text: str) -> bool:
-    return received_text in ("로또", "로또번호 점지해줘")
-
-def make_response(received_text: str, candidate_numbers: List[int] = None) -> str:
-    if candidate_numbers is None:
-        candidate_numbers = random.sample(range(1, 46), 7)
-    * numbers, bonus = random.sample(range(1, 46), 7)
-    predict_numbers: str = ", ".join(map(str, sorted(numbers)) # 숫자 리스트를 문자 리스트로 바꾸는 맵핑)
-    message = f"로또번호는 {predict_numbers} 이며, 보너스 번호는 {bonus}이니다."
-    return message
-
+    candidate_numbers = [1, 2, 3, 4, 5, 6, 7]
+    response_text = predict_lotto_numbers.make_response("", candidate_numbers)
+    assert response_text == f"로또번호는 1, 2, 3, 4, 5, 6 이며, 보너스 번호는 7입니다."
