@@ -26,22 +26,25 @@ new_song_list: List[dict] = []
 for song_dict in song_list:
     artist: str = song_dict["artist"]
     if len(artist) >= 3:
-        value:int = song_dict["like"] * len(song_dict["title"])
-        #new_song_list.append(dict(song_dict, value=value))
-        #위의 코드가 아래코드와 비슷하게 동작하는 코드(32~38라인)
-        new_song_list.append({
-            "title": song_dict["title"],
-            "artist": song_dict["artist"],
-            "like": song_dict["like"],
-            "album": song_dict["album"],
-            "rank": song_dict["rank"],
-            "value": value,
-        })
+        value: int = song_dict["like"] * len(song_dict["title"])
+        # new_song_list.append(dict(song_dict, value=value))
+        # 위의 코드가 아래코드와 비슷하게 동작하는 코드(32~38라인)
+        new_song_list.append(
+            {
+                "title": song_dict["title"],
+                "artist": song_dict["artist"],
+                "like": song_dict["like"],
+                "album": song_dict["album"],
+                "rank": song_dict["rank"],
+                "value": value,
+            }
+        )
 
 for value in new_song_list:
     print("{title} / {value}".format(**song_dict))
 
 # 2) filter/map 위주로 구현
 
-def artist_length_3():
-    
+# def artist_length_3():
+
+# =============== 2) 교수님 풀이 ==========================
