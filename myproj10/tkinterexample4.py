@@ -8,17 +8,40 @@ def clickButton():
 
 
 window = Tk()
-window.title("버튼 이벤트 연습")  # 고정 표시줄 네이밍
+window.title("입력관련 연습")  # 고정 표시줄 네이밍
 
-button1 = Button(window, text="요기 눌러요1", fg="red", bg="yellow", command=clickButton)
-button2 = Button(window, text="요기 눌러요2", fg="red", bg="yellow", command=clickButton)
-button3 = Button(window, text="요기 눌러요3", fg="red", bg="yellow", command=clickButton)
+# 프레임 영역을 나누기
+# 엔트리 : 입력상자 (사용자에게 입력 받는 <input type=text>)
+# 리스트박스 : 목록 (결과 화면 여러개의 row를 표현해야 할 때)
 
-button1.pack(
-    side=TOP, padx=10, pady=10
-)  # pad : 패딩값 / padx : x축 패딩값 / pady : y축 패딩값 / side : 정렬값(TOP/LEFT/RIGHT/BOTTOM)
-button2.pack(side=TOP, padx=10, pady=10)
-button3.pack(side=TOP, padx=10, pady=10)
+# 프레임으로 upFrame, downFrame 으로 나눠서 영역을 사용
+upFrame = Frame(window, relief="solid", bd=2)
+upFrame.pack()
+
+midFrame = Frame(window, relief="solid", bd=2)
+midFrame.pack()
+
+downFrame = Frame(window, relief="solid", bd=2)
+downFrame.pack()
+
+# 입력상자를 upFrame에 배치
+editBox = Entry(upFrame, width=10)
+editBox.pack(padx=20, pady=10)
+
+# midFrame은 버튼
+button = Button(midFrame, text="중간")
+button.pack(padx=20, pady=20)
+
+# 리스트박스는 downFrame에 배치
+listBox = Listbox(downFrame)
+listBox.pack()
+
+# 리스트 박스에 값 입력
+listBox.insert(END, "하나")
+listBox.insert(END, "둘")
+listBox.insert(END, "셋")
 
 # GUI 화면 코딩
 window.mainloop()
+
+#

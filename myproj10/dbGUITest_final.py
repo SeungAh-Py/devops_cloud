@@ -68,8 +68,11 @@ def insertData():
 
 # 프레임 이동(메인화면으로 돌아가기)
 def backFrame():
-    editFrame.pack()
     listFrame.pack_forget()
+    label0.pack(side=TOP, padx=30, pady=30)
+    pLabel.pack(expand=1, anchor=CENTER)
+    editFrame.pack()
+    neditFrame.pack()
 
 
 def selectData():
@@ -77,8 +80,15 @@ def selectData():
     cur = None
 
     userID = edt1.get()
+    name = edt2.get()
+    birthYear = edt3.get()
+    addr = edt4.get()
 
     editFrame.pack_forget()
+    neditFrame.pack_forget()
+    pLabel.pack_forget()
+    label0.pack_forget()
+
     listFrame.pack(side=BOTTOM, fill=BOTH, expand=1)
 
     lUserID, lName, lBirthYear, lAddr = [], [], [], []
@@ -108,6 +118,12 @@ def selectData():
     sql = (
         "SELECT userID, name, birthYear, addr from userTBL WHERE userID ='"
         + userID
+        + "'OR name ='"
+        + name
+        + "' OR birthYear = '"
+        + birthYear
+        + "' OR addr = '"
+        + addr
         + "' ORDER BY mDate DESC"
     )
     cur.execute(sql)
@@ -141,17 +157,49 @@ def selectData():
     conn.close()
 
 
+def newwindow():
+    global new
+    new = Toplevel()
+    new.geometry("300x100+600+400")
+    new.title("새창")
+
+    NFrame = Frame(new)
+    NFrame.pack()
+
+    label5 = Label(NFrame, text="매우 힘들었습니다.", font=("궁서체", 20), fg="red")
+    label5.pack(side=TOP)
+
+    def close_window():
+        new.destroy()
+
+    clbtn = Button(NFrame, text="Back", command=close_window)
+    clbtn.pack(side=BOTTOM, padx=10, pady=10)
+
+
 # GUI 화면 구성
 window = Tk()
-window.geometry("800x300")
-window.title("MariaDB 연동 GUI")
+window.geometry("900x600+300+100")
+window.title("Login")
+
+label0 = Label(window, text="User Registration")
+label0.pack(side=TOP, padx=30, pady=30)
+
+mainPhoto = PhotoImage(file="login.gif")
+pLabel = Label(window, image=mainPhoto)
+pLabel.pack(expand=1, anchor=CENTER)
 
 editFrame = Frame(window)
 editFrame.pack()
 
+neditFrame = Frame(window)
+neditFrame.pack()
+
 listFrame = Frame(window)
 listFrame.pack(side=BOTTOM, fill=BOTH, expand=1)
 listFrame.pack_forget()
+
+newFrame = Frame(listFrame)
+newFrame.pack(sid=BOTTOM, fill=BOTH, expand=2)
 
 label1 = Label(editFrame, text="회원 ID")
 label1.pack(side=LEFT, padx=10, pady=10)
@@ -174,15 +222,16 @@ edt3.pack(side=LEFT, padx=10, pady=10)
 label4 = Label(editFrame, text="회원 주소")
 label4.pack(side=LEFT, padx=10, pady=10)
 
+
 edt4 = Entry(editFrame, width=10)
 edt4.pack(side=LEFT, padx=10, pady=10)
 
 # 버튼
-btnInsert = Button(editFrame, text="입력", command=insertData)
+btnInsert = Button(neditFrame, text="Join", command=insertData)
 btnInsert.pack(side=LEFT, padx=10, pady=10)
 
-btnSelect = Button(editFrame, text="조회", command=selectData)
-btnSelect.pack(side=LEFT, padx=10, pady=10)
+btnSelect = Button(neditFrame, text="Member inquire", command=selectData)
+btnSelect.pack(side=LEFT, fill=BOTH, padx=10, pady=40)
 
 listUserID = Listbox(listFrame)
 listUserID.pack(side=LEFT, fill=BOTH, expand=1)
@@ -196,7 +245,13 @@ listBirthYear.pack(side=LEFT, fill=BOTH, expand=1)
 listAddr = Listbox(listFrame)
 listAddr.pack(side=LEFT, fill=BOTH, expand=1)
 
-btnBack = Button(listFrame, text="돌아가기", command=backFrame)
-btnBack.pack(side=LEFT, padx=10, pady=10)
+btnBack = Button(newFrame, text="돌아가기", command=backFrame)
+btnBack.pack(side=BOTTOM, fill=BOTH, padx=10, pady=10)
+
+btnNewwin = Button(newFrame, text="info", command=newwindow)
+btnNewwin.pack(side=BOTTOM, fill=BOTH, padx=10, pady=10)
+
+btnlastBack = Button(newFrame, text="프로그램 종료", command=quit)
+btnlastBack.pack(side=BOTTOM, fill=BOTH, padx=10, pady=10)
 
 window.mainloop()

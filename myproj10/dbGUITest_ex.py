@@ -18,27 +18,17 @@ def insertData():
 
     # 회원 정보 insert 기능 구현
     # 사용자에게 입력받은 회원 정보 초기화
-    userID, name, birthYear, addr = "", "", "", ""
+    userID, pw = "", ""
 
     # GUI에서 입력한 데이터 담기
     userID = edt1.get()
-    name = edt2.get()
-    birthYear = edt3.get()
-    addr = edt4.get()
+    pw = edt2.get()
 
     # SQL 쿼리 만들기
     sql = ""
     sql = (
-        "INSERT INTO userTBL (userID, name, birthYear, addr, mDate) VALUES "
-        "('"
-        + userID
-        + "' , '"
-        + name
-        + "' , "
-        + birthYear
-        + " , '"
-        + addr
-        + "', CURDATE())"
+        "INSERT INTO bbsuserTBL (userID, password) VALUES "
+        "('" + userID + "' , '" + pw + "' "
     )
 
     print(sql)
@@ -59,8 +49,6 @@ def insertData():
     # GUI에 입력한 데이터 삭제
     edt1.delete(0, "end")
     edt2.delete(0, "end")
-    edt3.delete(0, "end")
-    edt4.delete(0, "end")
 
     # DB 접속 종료
     conn.close()
@@ -81,7 +69,7 @@ def selectData():
     editFrame.pack_forget()
     listFrame.pack(side=BOTTOM, fill=BOTH, expand=1)
 
-    lUserID, lName, lBirthYear, lAddr = [], [], [], []
+    lbbsNo, luserID, ltitle, lcontext, lmdate = [], [], [], [], []
 
     # 데이터베이스 접속
     conn = pymysql.connect(
@@ -91,24 +79,11 @@ def selectData():
     # 커서
     cur = conn.cursor()
 
-    # 데이터 초기화
-    lUserID.append("회원 ID")
-    lUserID.append("---------")
-
-    lName.append("회원명")
-    lName.append("---------")
-
-    lBirthYear.append("출생년도")
-    lBirthYear.append("---------")
-
-    lAddr.append("회원주소")
-    lAddr.append("---------")
-
     # select 기능 구현
     sql = (
-        "SELECT userID, name, birthYear, addr from userTBL WHERE userID ='"
+        "SELECT bbsNo, userID, title, context, mDate from bbsTBL WHERE userID ='"
         + userID
-        + "' ORDER BY mDate DESC"
+        + "' ORDER BY bbsNo ASC"
     )
     cur.execute(sql)
 
@@ -118,85 +93,123 @@ def selectData():
         if row == None:
             break
         # lUserID, lName, lBirthYear, lAddr
-        lUserID.append(row[0])
-        lName.append(row[1])
-        lBirthYear.append(row[2])
-        lAddr.append(row[3])
+        lbbsNo.append(row[0])
+        luserID.append(row[1])
+        ltitle.append(row[2])
+        lcontext.append(row[3])
+        lmdate.append(row[4])
 
     # GUI ListBox에 insert
     # listUserID, listName, listBirthYear, listAddr
     # 1)리스트 박스 초기화 (기존 데이터 삭제)
-    listUserID.delete(0, listUserID.size() - 1)
-    listName.delete(0, listName.size() - 1)
-    listBirthYear.delete(0, listBirthYear.size() - 1)
-    listAddr.delete(0, listAddr.size() - 1)
+    listbbsNo.delete(0, listbbsNo.size() - 1)
+    listuserID.delete(0, listuserID.size() - 1)
+    listtitle.delete(0, listtitle.size() - 1)
+    listcontext.delete(0, listcontext.size() - 1)
+    listmDate.delete(0, listmDate.size() - 1)
 
     # 2) select 해온 데이터 insert
-    for item1, item2, item3, item4 in zip(lUserID, lName, lBirthYear, lAddr):
-        listUserID.insert(END, item1)
-        listName.insert(END, item2)
-        listBirthYear.insert(END, item3)
-        listAddr.insert(END, item4)
+    for item1, item2, item3, item4, item5 in zip(
+        lbbsNo, luserID, ltitle, lcontext, lmdate
+    ):
+        listbbsNo.insert(END, item1)
+        listuserID.insert(END, item2)
+        listtitle.insert(END, item3)
+        listcontext.insert(END, item4)
+        listmDate.insert(END, item5)
 
     conn.close()
 
 
 # GUI 화면 구성
 window = Tk()
-window.geometry("800x300")
+window.geometry("1200x800")
 window.title("MariaDB 연동 GUI")
 
 editFrame = Frame(window)
 editFrame.pack()
 
-listFrame = Frame(window)
-listFrame.pack(side=BOTTOM, fill=BOTH, expand=1)
-listFrame.pack_forget()
+# (editFrame, text="로그인 화면")
 
 label1 = Label(editFrame, text="회원 ID")
-label1.pack(side=LEFT, padx=10, pady=10)
+label1.pack(side=LEFT, padx=20, pady=20)
 
 edt1 = Entry(editFrame, width=10)
-edt1.pack(side=LEFT, padx=10, pady=10)
+edt1.pack(side=LEFT, padx=20, pady=20)
 
-label2 = Label(editFrame, text="회원명")
+label2 = Label(editFrame, text="비밀번호")
 label2.pack(side=LEFT, padx=10, pady=10)
 
 edt2 = Entry(editFrame, width=10)
 edt2.pack(side=LEFT, padx=10, pady=10)
 
-label3 = Label(editFrame, text="출생년도")
+
+mainPhoto = PhotoImage(file="login.gif")
+pLabel = Label(window, image=mainPhoto)
+pLabel.pack(expand=1, anchor=CENTER)
+
+listFrame = Frame(window)
+listFrame.pack(side=BOTTOM, fill=BOTH, expand=1)
+listFrame.pack_forget()
+
+# 게시판 화면
+label1 = Label(listFrame, text="bbsNo")
+label1.pack(side=LEFT, padx=10, pady=10)
+
+edt1 = Entry(listFrame, width=10)
+edt1.pack(side=LEFT, padx=10, pady=10)
+
+label2 = Label(listFrame, text="userID")
+label2.pack(side=LEFT, padx=10, pady=10)
+
+edt2 = Entry(listFrame, width=10)
+edt2.pack(side=LEFT, padx=10, pady=10)
+
+label3 = Label(listFrame, text="title")
 label3.pack(side=LEFT, padx=10, pady=10)
 
-edt3 = Entry(editFrame, width=10)
+edt3 = Entry(listFrame, width=10)
 edt3.pack(side=LEFT, padx=10, pady=10)
 
-label4 = Label(editFrame, text="회원 주소")
+label4 = Label(listFrame, text="context")
 label4.pack(side=LEFT, padx=10, pady=10)
 
-edt4 = Entry(editFrame, width=10)
+edt4 = Entry(listFrame, width=10)
 edt4.pack(side=LEFT, padx=10, pady=10)
 
-# 버튼
-btnInsert = Button(editFrame, text="입력", command=insertData)
-btnInsert.pack(side=LEFT, padx=10, pady=10)
+label5 = Label(listFrame, text="mDate")
+label5.pack(side=LEFT, padx=10, pady=10)
 
-btnSelect = Button(editFrame, text="조회", command=selectData)
+edt5 = Entry(listFrame, width=10)
+edt5.pack(side=LEFT, padx=10, pady=10)
+
+
+# 버튼
+
+btnSelect = Button(editFrame, text="LOGIN", command=selectData)
 btnSelect.pack(side=LEFT, padx=10, pady=10)
 
-listUserID = Listbox(listFrame)
-listUserID.pack(side=LEFT, fill=BOTH, expand=1)
 
-listName = Listbox(listFrame)
-listName.pack(side=LEFT, fill=BOTH, expand=1)
+listbbsNo = Listbox(listFrame)
+listbbsNo.pack(side=LEFT, fill=BOTH, expand=1)
 
-listBirthYear = Listbox(listFrame)
-listBirthYear.pack(side=LEFT, fill=BOTH, expand=1)
+listuserID = Listbox(listFrame)
+listuserID.pack(side=LEFT, fill=BOTH, expand=1)
 
-listAddr = Listbox(listFrame)
-listAddr.pack(side=LEFT, fill=BOTH, expand=1)
+listtitle = Listbox(listFrame)
+listtitle.pack(side=LEFT, fill=BOTH, expand=1)
+
+listcontext = Listbox(listFrame)
+listcontext.pack(side=LEFT, fill=BOTH, expand=1)
+
+listmDate = Listbox(listFrame)
+listmDate.pack(side=LEFT, fill=BOTH, expand=1)
+
+btnInsert = Button(listFrame, text="글쓰기", command=insertData)
+btnInsert.pack(side=TOP, padx=10, pady=10)
 
 btnBack = Button(listFrame, text="돌아가기", command=backFrame)
-btnBack.pack(side=LEFT, padx=10, pady=10)
+btnBack.pack(side=TOP, padx=10, pady=10)
+
 
 window.mainloop()
