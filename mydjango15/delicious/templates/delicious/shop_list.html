@@ -18,7 +18,7 @@
             {% for shop in shop_list %}
                 <tr>
                     <td>
-                        <a href="/delicious/{{ shop.pk }}/">{{ shop.name }}</a>
+                        <a href="{% url "delicious:shop_detail" shop.pk %}">{{ shop.name }}</a>
                     </td>
                     <td>
                         <a href="tel:{{ shop.telephone }}">{{ shop.telephone }}</a>
