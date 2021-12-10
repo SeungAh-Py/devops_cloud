@@ -1,0 +1,13 @@
+{% extends "diary/layout.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <h2>Post Form</h2>
+
+    <form action="" method="post" enctype="multipart/form-data">  {# method를 생략하면 get 방식 #}
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" value="저장하기">
+    </form>
+
+{% endblock %}
