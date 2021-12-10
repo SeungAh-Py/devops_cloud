@@ -13,13 +13,15 @@ class TimestampedModel(models.Model):
 class Shop(TimestampedModel):
     name = models.CharField(max_length=100, db_index=True)
     description = models.TextField(blank=True)
-    tag_set = models.ManyToManyField('Tag', blank=True)
     telephone = models.CharField(max_length=14,
                                        validators=[
                                            RegexValidator(r"^\d{3}-?\d{4}-?\d{4}$", message="전화번호를 입력해주세요."),
                                        ],
                                        help_text="입력 예시) 042-1234-5678")
+    tag_set = models.ManyToManyField('Tag', blank=True)
 
+    def __str__(self) -> str:
+        return self.name
 
 
 class Review(TimestampedModel):
@@ -31,4 +33,5 @@ class Review(TimestampedModel):
 class Tag(TimestampedModel):
     name = models.CharField(max_length=100, unique=True)
 
-
+    def __str__(self) -> str:
+        return self.name
