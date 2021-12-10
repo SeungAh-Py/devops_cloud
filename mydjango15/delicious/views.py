@@ -29,6 +29,7 @@ def shop_detail(request: HttpRequest, pk=int) -> HttpResponse:
     }
     return render(request, template_name, context_data)
 
+
 # 안좋은 예(장고 스타일 x)
 def shop_new_1(request: HttpRequest) -> HttpResponse:
     if request.method == "GET":   # "GET" , "POST"
