@@ -7,7 +7,7 @@ from shop.models import Shop
 
 def shop_detail(request: HttpRequest, pk: int) -> HttpResponse:
     shop = get_object_or_404(Shop, pk=pk)
-    return render(request, "shop/shop_detail.html", {
+    return render(request+, "shop/shop_detail.html", {
         "shop": shop,
     })
 
