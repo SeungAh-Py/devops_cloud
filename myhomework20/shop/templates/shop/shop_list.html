@@ -1,7 +1,7 @@
 {% extends "shop/layout.html" %}
 
 {% block content %}
-    <a href="{% url "shop:shop_new" %}" class="btn btn-primary">
+    <a href="{% url "shop:shop_new" %}" class="btn btn-primary" style="margin-top: 20px; display: block;">
         맛집 등록
     </a>
 
@@ -10,7 +10,9 @@
             <input type="text"
                    name="query"
                    value="{{ request.GET.query }}"
-                   placeholder="검색어를 입력해주세요."/>
+                   placeholder="검색어를 입력해주세요."
+                   style="display: inline-block; margin-top: 20px;"
+            />
         </label>
         <input type="submit" value="검색" class="btn btn-sm btn-primary">
     </form>
