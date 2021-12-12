@@ -3,9 +3,23 @@
 {% block content %}
     <h2>{{ shop.name }}</h2>
 
-    {{ shop.description }}
-    <img src="{{ shop.photo.url }}" alt="{{ shop.name }}">
+    {{ shop.description|linebreaks}}
+    <h2>맛집 리뷰</h2>
+    <ul>
+    {% for review in review_list %}
+        <li>
+            <img src="{{ shop.photo.url }}" alt="{{ shop.name }}">
+            {{ review.message }}
+            by {{ review.author_name }}
+            at {{ review.created_at }}
+        </li>
+    {% endfor %}
+    </ul>
+
 
     <hr>
     {{ shop.created_at|timesince }} 전
+    <a href="{% url "shop:shop_list" shop.pk %}">
+        목록으로
+    </a>
 {% endblock %}
