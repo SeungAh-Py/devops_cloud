@@ -1,6 +1,6 @@
-.vscode
+venv
 .idea
 media
-venv
+.vscode
 db.sqlite3
 __pycache__
