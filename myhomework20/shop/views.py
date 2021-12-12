@@ -23,16 +23,15 @@ def shop_new(request: HttpRequest) -> HttpResponse:
         form = ShopForm()
 
     return render(request, "shop/shop_form.html", {
-        "form":form,
+        "form": form,
     })
 
 
 def shop_list(request: HttpRequest) -> HttpResponse:
     qs = Shop.objects.all()
-
-    query = request.GET.get("query", "")
-    if query:
-        qs = qs.filter(title__icontains=query)
+    context_data = {
+        "shop_list": qs,
+    }
 
     return render(request, "shop/shop_list.html", {
         "shop_list": qs,
