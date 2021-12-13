@@ -14,13 +14,17 @@
             </ul>
         </div>
         <div class="col-sm-4">
-            <form action="" method="get">
+            <div class="d-grid mb-3">
+                <a href="{% url "shop:shop_new" %}" class="btn btn-primary">새 포스팅 쓰기</a>
+            </div>
+            <form action="" method="get" class="mb-3">
                 <input type="text"
                        name="query"
                        placeholder="검색어를 입력해주세요."
                        value="{{ request.GET.query }}"/>
                 <input type="submit" value="검색하기"/>
             </form>
+
             <ul>
                 <li>
                     <a href="?category_id">
