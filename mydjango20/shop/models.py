@@ -16,6 +16,9 @@ class Category(TimestampedModel):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        ordering = ["-id"]   # id 에 대한 (-) 내림차순 정렬(최신순)
+
 
 class Shop(TimestampedModel):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -31,11 +34,17 @@ class Shop(TimestampedModel):
     def __str__(self) -> str:
         return self.name
 
+    class Meta:
+        ordering = ["-id"]   # id 에 대한 (-) 내림차순 정렬(최신순)
+
 
 class Review(TimestampedModel):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     author_name = models.CharField(max_length=20)
     message = models.TextField()   # 리뷰는 반드시 넣기 위해서 ()
+
+    class Meta:
+        ordering = ["-id"]   # id 에 대한 (-) 내림차순 정렬(최신순)
 
 
 class Tag(TimestampedModel):
@@ -43,3 +52,6 @@ class Tag(TimestampedModel):
 
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        ordering = ["name"]  # 태그만 기본 정렬

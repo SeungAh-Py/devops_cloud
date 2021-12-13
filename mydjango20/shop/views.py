@@ -3,9 +3,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from shop.forms import ShopForm
 from shop.models import Shop
 
+
+def shop_list(request: HttpRequest) -> HttpResponse:
+    qs = Shop.objects.all() # order_by('-id')
+
+    query = request.GET.get("query", '')
+    if query:
+        qs = qs.filter(name__icontains=query) # name이라는 테이블에서 ignore contain 해라.(대소문자 구문하지 말아라)
+
+    return render(request, "shop/shop_list.html", {
+        "shop_list": qs,
+    })
+
+
 # /shop/new/ 쓰면 아래 함수가 호출되게 하고 싶음
-
-
 def shop_new(request: HttpRequest) -> HttpResponse:
     # raise NotImplementedError("구현 예정입니다.")
 
