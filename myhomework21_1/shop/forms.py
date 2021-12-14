@@ -6,4 +6,4 @@ from shop.models import Shop
 class ShopForm(forms.ModelForm):
     class Meta:
         model = Shop
-        field = "__all__"
+        fields = "__all__"

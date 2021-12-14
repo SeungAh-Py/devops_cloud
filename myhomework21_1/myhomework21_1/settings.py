@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # local apps
     'shop',
+    # third apps
+    'bootstrap5',
 ]
 
 if DEBUG:

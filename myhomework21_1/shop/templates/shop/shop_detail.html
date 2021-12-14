@@ -1,0 +1,23 @@
+{% extends "shop/layout.html" %}
+
+{% block content %}
+
+    <h2>{{ shop.name }}</h2>
+
+    <p>
+    {% for tag in tag_list %}
+        <span class="badge bg-success">{{ tag.name }}</span>
+    {% endfor %}
+    </p>
+
+    {{ shop.description|linebreaks }}
+
+    <hr>
+    {{ shop.creaeted_at|timesince }}
+
+    <hr>
+    <a href="{% url "shop:shop_edit" shop.pk %}" class="btn btn-success">
+        EDIT
+    </a>
+
+{% endblock %}
