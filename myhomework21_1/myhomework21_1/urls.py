@@ -9,6 +9,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('__debug__/', include('debug_toolbar.urls')),
+    path('shop/', include('shop.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, base_dir=settings.MEDIA_ROOT)
