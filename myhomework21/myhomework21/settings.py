@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # local apps
+    'shop',
 ]
 
 if DEBUG:
     INSTALLED_APPS += [
+        # third apps
         'debug_toolbar',
     ]
 
