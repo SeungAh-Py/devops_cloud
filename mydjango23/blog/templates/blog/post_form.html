@@ -7,13 +7,15 @@
         <input type="submit"/>
     </form>
 
+    <hr/>
+
     <a href="{% url "blog:post_list" %}">
         목록으로
     </a>
 
     {% if post %}
         <a href="{% url "blog:post_detail" post.pk %}">
-            취소
+            조회화면으로
         </a>
     {% endif %}
 {% endblock %}
