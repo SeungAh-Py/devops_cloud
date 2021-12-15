@@ -1,5 +1,5 @@
 from django.contrib import admin
-from shop.models import Shop, Review, Tag, Category
+from blog.models import Category, Post, Comment, Tag
 
 
 @admin.register(Category)
@@ -7,13 +7,13 @@ class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Shop)
-class ShopAdmin(admin.ModelAdmin):
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Review)
-class ReviewAdmin(admin.ModelAdmin):
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
     pass
 
 
