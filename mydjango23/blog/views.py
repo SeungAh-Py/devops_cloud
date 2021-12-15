@@ -43,7 +43,7 @@ def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             saved_post = form.save()
-            messages.success(request, f"새로운 포스팅을 저장했습니다.")
+            messages.success(request, f"#{pk} 포스팅을 저장했습니다.")
             return redirect('blog:post_detail', saved_post.pk)
     else:
         form = PostForm(instance=post)
@@ -54,5 +54,17 @@ def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
 
 
 def post_delete(request: HttpRequest, pk: int) -> HttpResponse:
-    raise NotImplementedError("삭제는 아직 강의에서 다루지 않았습니다.")
+    post = get_object_or_404(Post, pk=pk)
 
+    # GET 요청 : 정말 삭제를 할 것인지, 한 번 더 물어봅니다.
+    # POST 요청 : 삭제를 하고, 다른 주소로 이동을 시킵니다.
+
+    # 분기
+    if request.method == "POST":
+        post.delete()  # 실제로 DB에 DELETE 쿼리 실행(즉시삭제)
+        messages.success(request, f"#{pk}")
+        return redirect("blog:post_list")
+
+    return render(request, "blog/post_confirm_delete.html", {
+        "post": post,
+    })
