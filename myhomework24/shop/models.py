@@ -36,7 +36,7 @@ class Shop(TimestampedModel):
     tag_set = models.ManyToManyField('Tag', blank=True)
 
     def get_absolute_url(self):
-        return reverse("shop:shop_detail", args=[self.pk])
+        return reverse("shop:shop_detail", args=[self.post.pk])
 
     def __str__(self) -> str:
         return self.name
