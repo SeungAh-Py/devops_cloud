@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -38,4 +39,5 @@ review_edit = UpdateView.as_view(
 
 review_delete = DeleteView.as_view(
     model=Review,
+    success_url=reverse_lazy("shop:shop_list")
 )
