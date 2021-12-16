@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from django.urls import reverse
 
 
 class TimestampedModel(models.Model):
@@ -24,6 +25,7 @@ class Shop(TimestampedModel):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=20, db_index=True)
     photo = models.ImageField(upload_to="shop/shop/%Y/%m/%d")
+    description = models.TextField()
     telephone = models.CharField(
         max_length=15,
         validators=[
@@ -32,6 +34,9 @@ class Shop(TimestampedModel):
         help_text="입력 예시) 042-1234-5678"
     )
     tag_set = models.ManyToManyField('Tag', blank=True)
+
+    def get_absolute_url(self):
+        return reverse("shop:shop_detail", args=[self.pk])
 
     def __str__(self) -> str:
         return self.name
