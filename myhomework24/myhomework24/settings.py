@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # local apps
-
+    'shop',
     # third apps
     'bootstrap5',
 ]
