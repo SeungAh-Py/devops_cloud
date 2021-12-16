@@ -1,0 +1,15 @@
+{% extends "shop/layout.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <h2>등록된 가게를 삭제하시겠습니까?</h2>
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="submit" value="가게 삭제하기">
+    </form>
+
+    <a href="{% url "shop:shop_detail" shop.pk %}">
+     돌아가기
+    </a>
+{% endblock %}
