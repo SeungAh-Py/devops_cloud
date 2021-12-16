@@ -5,7 +5,19 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from shop.forms import ShopForm, ReviewForm
 from shop.models import Shop, Review
 
-shop_list = ListView.as_view(
+
+class ShopListView(ListView):
+    model = Shop
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        query = self.request.GET.get("query", "").strip()
+        if query:
+            qs = qs.filter(name__icontains=query)
+        return qs
+
+
+shop_list = ShopListView.as_view(
     model=Shop
 )
 

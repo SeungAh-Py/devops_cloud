@@ -2,6 +2,16 @@
 
 {% block content %}
 
+{% block header %}
+    <form action="" method="get">
+        <label>
+            <input type="text" name="query" value="{{ request.GET.query }}" placeholder="가게명을 입력해주세요.">
+            <input type="submit" value="검색">
+        </label>
+
+    </form>
+{% endblock %}
+
     <ul>
         {% for shop in shop_list %}
             <li>
