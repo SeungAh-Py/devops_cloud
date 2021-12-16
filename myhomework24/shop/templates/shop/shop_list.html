@@ -1,0 +1,20 @@
+{% extends "shop/layout.html" %}
+
+{% block content %}
+
+    <ul>
+        <li>
+            <a href="{% url "shop:shop_detail" shop.pk %}">
+                {{ shop.name }}
+            </a>
+        </li>
+    </ul>
+
+
+{% endblock %}
+
+{% block footer %}
+
+    <a href="{% url "shop:shop_new" %}" class="btn btn-primary">가게 등록</a>
+
+{% endblock %}
