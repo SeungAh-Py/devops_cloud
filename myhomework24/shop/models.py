@@ -27,7 +27,7 @@ class Shop(TimestampedModel):
     telephone = models.CharField(
         max_length=15,
         validators=[
-            RegexValidator(r"^\d{3,4}-?\d{3,4}-?\d{4}&")
+            RegexValidator(r"^\d{3,4}-?\d{3,4}-?\d{4}$")
         ],
         help_text="입력 예시) 042-1234-5678"
     )
