@@ -8,9 +8,10 @@ console.log(song_array);
 // Array의 sort 활용
 // ref: https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 
+melon_data.sort(
+    (a, b) => (a.like - b.like)
+);
+
 for (const song of melon_data) {
-    melon_data.sort(function (a, b) {
-        return b.like - a.like
-    })
-    console.log(song.like, song.title)
+    console.log(`[${song.like}] ${song.title}`)
 };
