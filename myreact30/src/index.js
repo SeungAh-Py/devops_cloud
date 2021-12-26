@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals'; // 웹의 성능 측정을 위해 있는 lib
 
 ReactDOM.render(
   <React.StrictMode>
