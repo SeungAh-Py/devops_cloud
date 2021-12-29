@@ -237,3 +237,13 @@ section nav.others a:nth-of-type(4) {
   background-color: #a794fd;
   box-shadow: 5px 5px 10px rgba(167, 148, 253, 0.7);
 }
+
+section nav.others a:nth-of-type(5) {
+  background-color: #35e0f7;
+  box-shadow: 5px 5px 10px rgba(167, 148, 253, 0.7);
+}
+
+section nav.others a:nth-of-type(6) {
+  background-color: #35e0f7;
+  box-shadow: 5px 5px 10px rgba(167, 148, 253, 0.7);
+}

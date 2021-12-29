@@ -4,7 +4,7 @@ import {faBars, faEnvelope, faStickyNote} from "@fortawesome/free-solid-svg-icon
 
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 
-function ProfileCard({img, name, role, facebookUrl, email, changeProfile, className, children}) {
+function ProfileCard({profile_image_url, name, role, instagram_url, mbti, className, children}) {
     return (
         <div className={className}>
             <section>
@@ -14,7 +14,7 @@ function ProfileCard({img, name, role, facebookUrl, email, changeProfile, classN
                 </nav>
 
                 <article className="profile">
-                    <img src={img} alt="프로필 이미지" />
+                    <img src={profile_image_url} alt="프로필 이미지" />
 
                     <h1>{name}</h1>
                     <h2>{role}</h2>
@@ -23,8 +23,8 @@ function ProfileCard({img, name, role, facebookUrl, email, changeProfile, classN
                 </article>
 
                 <ul className="contact">
-                    <li><FontAwesomeIcon icon={faFacebook} /><span><a href={facebookUrl}>{facebookUrl}</a></span></li>
-                    <li><FontAwesomeIcon icon={faEnvelope} /><span>{email}</span></li>
+                    <li><FontAwesomeIcon icon={faFacebook} /><span><a href={instagram_url}>{instagram_url}</a></span></li>
+                    <li><FontAwesomeIcon icon={faEnvelope} /><span>{mbti}</span></li>
                 </ul>
 
                 {/* 멤버별 프로필 링크 */}

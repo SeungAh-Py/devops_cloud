@@ -1,18 +1,33 @@
 import PageLotto from "./components/PageLotto";
 import ProfileCard from "./components/ProfileCard";
-import userInfoList from "./data/userInfo.json";
-import { useState } from "react";
-
-const userIdList = userInfoList.map(({ userid }) => userid);
+// import userInfoList from "./data/userInfo.json";
+import { useState, useEffect } from "react";
+import Axios from "axios";
 
 function App() {
-  const [selectedId, setUserId] = useState(userIdList[0]);
+  const [userInfoList, setProfileList] = useState([]);
+
+  useEffect(() => {
+    Axios.get(
+      "https://classdevopscloud.blob.core.windows.net/data/profile-list.json"
+    )
+      .then((reponse) => {
+        // reponse는 axios 객체
+        // response.data => 응답 내용
+        setProfileList(reponse.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const [selectedId, setUserId] = useState(`bts-jin`);
 
   return (
     <div>
       {userInfoList.map((userinfo, index) => {
         const className = `user${index % 4}`;
-        if (selectedId === userinfo.userid) {
+        if (selectedId === userinfo.unique_id) {
           return (
             <ProfileCard
               {...userinfo}
@@ -27,8 +42,8 @@ function App() {
               {userInfoList.map((userinfo) => {
                 return (
                   <a
-                    className={selectedId === userinfo.userid ? "on" : ""}
-                    onClick={() => setUserId(userinfo.userid)}
+                    className={selectedId === userinfo.unique_id ? "on" : ""}
+                    onClick={() => setUserId(userinfo.unique_id)}
                   ></a>
                 );
               })}
