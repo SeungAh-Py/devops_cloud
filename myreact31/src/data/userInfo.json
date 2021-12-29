@@ -1,0 +1,30 @@
+[
+  {
+    "userid": "user1",
+    "name": "lucie",
+    "role": "UI/UX INTERACTIVE DEVELOPER",
+    "facebookUrl": "https://www.facebook.com/rainygirl",
+    "email": "hadaboni80@naver.com"
+  },
+  {
+    "userid": "user2",
+    "name": "luna",
+    "role": "python",
+    "facebookUrl": "https://www.facebook.com/groups/python",
+    "email": "abcd@naver.com"
+  },
+  {
+    "userid": "user3",
+    "name": "jason",
+    "role": "django",
+    "facebookUrl": "https://www.facebook.com/groups/djangodevelopersnetwork",
+    "email": "1234@naver.com"
+  },
+  {
+    "userid": "user4",
+    "name": "shawn",
+    "role": "react",
+    "facebookUrl": "https://www.facebook.com/react/",
+    "email": "qwer@naver.com"
+  }
+]
